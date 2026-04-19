@@ -1,0 +1,21 @@
+services:
+    postgres:
+        image: postgres:16-alpine
+        container_name: ${PROJECT_NAME}_postgres
+        environment:
+            POSTGRES_USER: backendapi_user
+            POSTGRES_PASSWORD: backendapi_password
+            POSTGRES_DB: backendapi_db
+        ports:
+            - "${DB_PORT}:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+volumes:
+    postgres_data:
