@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, LogOut } from 'lucide-react'
+import { Home, LogOut, Cpu, BookOpen } from 'lucide-react'
 import { useLogout, useAuthStore } from '@shared'
 import {
   Sidebar,
@@ -13,10 +13,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { Button } from '@/components/ui/button'
 
 const navItems = [
   { href: '/', icon: Home, label: 'Home' },
+  { href: '/workspace', icon: Cpu, label: 'Hardware Designer' },
+  { href: '/academy', icon: BookOpen, label: 'Academy' },
 ]
 
 export function AppSidebar() {
@@ -25,13 +26,14 @@ export function AppSidebar() {
   const { mutate: logout, isPending } = useLogout()
 
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
+            <SidebarMenuButton size="lg" asChild tooltip="Schemo">
               <Link href="/">
-                <span className="font-semibold">App</span>
+                <Cpu className="size-4 shrink-0" />
+                <span className="font-semibold">Schemo</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -42,9 +44,9 @@ export function AppSidebar() {
         <SidebarMenu>
           {navItems.map(({ href, icon: Icon, label }) => (
             <SidebarMenuItem key={href}>
-              <SidebarMenuButton asChild isActive={pathname === href}>
+              <SidebarMenuButton asChild isActive={pathname === href} tooltip={label}>
                 <Link href={href}>
-                  <Icon />
+                  <Icon className="size-4 shrink-0" />
                   <span>{label}</span>
                 </Link>
               </SidebarMenuButton>
@@ -55,22 +57,25 @@ export function AppSidebar() {
 
       <SidebarFooter>
         <SidebarMenu>
+          {user && (
+            <SidebarMenuItem>
+              <SidebarMenuButton tooltip={user.email} disabled>
+                <span className="flex size-6 items-center justify-center rounded-full bg-white/10 text-xs font-medium shrink-0">
+                  {user.email[0].toUpperCase()}
+                </span>
+                <span className="truncate text-xs text-muted-foreground">{user.email}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          )}
           <SidebarMenuItem>
-            <div className="flex flex-col gap-2 px-1 pb-1">
-              {user && (
-                <p className="text-xs text-muted-foreground px-2 truncate">{user.email}</p>
-              )}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full justify-start gap-2"
-                onClick={() => logout()}
-                disabled={isPending}
-              >
-                <LogOut className="size-4" />
-                {isPending ? 'Logging out...' : 'Log out'}
-              </Button>
-            </div>
+            <SidebarMenuButton
+              onClick={() => logout()}
+              disabled={isPending}
+              tooltip={isPending ? 'Logging out…' : 'Log out'}
+            >
+              <LogOut className="size-4 shrink-0" />
+              <span>{isPending ? 'Logging out…' : 'Log out'}</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

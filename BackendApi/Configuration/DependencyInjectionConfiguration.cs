@@ -1,5 +1,6 @@
 using BackendApi.Repositories.User;
 using BackendApi.Services.Auth;
+using BackendApi.Services.Claude;
 using BackendApi.Services.Jwt;
 using BackendApi.Services.User;
 
@@ -12,10 +13,14 @@ public static class DependencyInjectionConfiguration
         // HTTP Context
         services.AddHttpContextAccessor();
 
+        // HTTP Clients
+        services.AddHttpClient("Claude");
+
         // Services
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IClaudeService, ClaudeService>();
 
         // Repositories
         services.AddScoped<IUserRepository, UserRepository>();

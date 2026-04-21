@@ -24,13 +24,17 @@ export function Header() {
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/docs" className="gap-1.5">
                   Docs
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0">Dev</Badge>
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0">
+                    Dev
+                  </Badge>
                 </Link>
               </Button>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/structure" className="gap-1.5">
                   Structure
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0">Dev</Badge>
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0">
+                    Dev
+                  </Badge>
                 </Link>
               </Button>
             </nav>

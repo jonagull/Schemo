@@ -153,3 +153,4 @@ NEXT_PUBLIC_API_URL=http://localhost:5157
 -   Tokens stored in HTTP-only cookies
 -   Automatic token refresh on frontend
 -   BCrypt password hashing
+# Schemo

@@ -20,9 +20,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <header className="flex h-12 shrink-0 items-center border-b px-4">
             <SidebarTrigger />
           </header>
-          <div className="flex flex-1 flex-col">
-            {children}
-          </div>
+          <div className="flex flex-1 flex-col">{children}</div>
         </SidebarInset>
       </SidebarProvider>
     )
@@ -31,9 +29,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <div className="flex flex-1 flex-col">
-        {children}
-      </div>
+      <div className="flex flex-1 flex-col">{children}</div>
     </>
   )
 }
